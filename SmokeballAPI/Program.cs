@@ -10,6 +10,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<ISearchManager, GoogleSearchManager>();
+builder.Services.AddScoped<HttpClient>();
 
 var app = builder.Build();
 

@@ -2,5 +2,5 @@
 
 public interface ISearchManager
 {
-    public Task<IEnumerable<int>> SearchUrlPlacement(string keywords, string targetUrl);
+    Task<IEnumerable<int>> GetSearchResultPositions(List<string> keywords, string url, int numResults);
 }

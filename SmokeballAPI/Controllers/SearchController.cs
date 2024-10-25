@@ -16,7 +16,7 @@ public class SearchController: ControllerBase
     [HttpGet("search")]
     public async Task<IActionResult> Search([FromQuery]string searchString, [FromQuery] string targetUrl)
     {
-       var result = await _searchManager.SearchUrlPlacement(searchString, targetUrl);
+       var result = await _searchManager.GetSearchResultPositions(searchString.Split(' ').ToList(), targetUrl, 100);
        return Ok(result);
     } 
 }

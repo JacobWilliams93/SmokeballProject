@@ -9,6 +9,6 @@ public class GoogleSearchManager(IHttpClientFactory httpClientFactory) : SearchM
     public override SearchManagerEnum SearchManagerType() => SearchManagerEnum.GoogleSearchManager;
 
     protected override string GetRequestUrl(IEnumerable<string> keywords, int numResults) => $"{_baseUrl}?q={String.Join('+', keywords)}&num={numResults}&udm=14";
-    protected override string GetRegexPattern() => @"<a[^>]*href=""\/([^""]*)[^>]*><div";
+    protected override string GetRegexPattern() => @"<a[^>]*href=""\/url([^""]*)[^>]*><div";
 
 }

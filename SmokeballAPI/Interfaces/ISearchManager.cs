@@ -1,6 +1,9 @@
-﻿namespace SmokeballAPI.Interfaces;
+﻿using SmokeballAPI.Enums;
+
+namespace SmokeballAPI.Interfaces;
 
 public interface ISearchManager
 {
-    Task<IEnumerable<int>> GetSearchResultPositions(List<string> keywords, string url, int numResults);
+    public SearchManagerEnum SearchManagerType();
+    public Task<IEnumerable<int>> GetSearchResultPositions(List<string> keywords, string url, int numResults);
 }

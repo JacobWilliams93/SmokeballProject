@@ -8,9 +8,9 @@ namespace SmokeballAPI.Controllers;
 [ApiController]
 public class SearchController: ControllerBase
 {
-    private readonly SearchManagerFactory _searchManagerFactory;
+    private readonly ISearchManagerFactory _searchManagerFactory;
 
-    public SearchController(SearchManagerFactory searchManagerFactory)
+    public SearchController(ISearchManagerFactory searchManagerFactory)
     {
         _searchManagerFactory = searchManagerFactory;
     }

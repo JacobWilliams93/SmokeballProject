@@ -11,9 +11,9 @@ public class BingSearchManager : SearchManagerBase
     {
     }
 
-    protected override string GetRequestUrl(IEnumerable<string> keywords, int numResults) => $"{_baseUrl}?q={String.Join('+', keywords)}&count={numResults}";
+    protected override string GetRequestUrl(IEnumerable<string> keywords, int numResults) => $"{_baseUrl}?q={String.Join('+', keywords)}";
 
-    protected override string GetRegexPattern() => @"<cite>(.*?)<\/cite>";
+    protected override string GetRegexPattern() => @"tilk[^>]*href=""([^""]*)[^>]*>";
 
     public override SearchManagerEnum SearchManagerType() => SearchManagerEnum.BingSearchManager;
 }

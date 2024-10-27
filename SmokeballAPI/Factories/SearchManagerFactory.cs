@@ -3,7 +3,7 @@ using SmokeballAPI.Interfaces;
 
 namespace SmokeballAPI.Factories;
 
-public class SearchManagerFactory
+public class SearchManagerFactory : ISearchManagerFactory
 {
     private readonly IEnumerable<ISearchManager> _searchManagers;
 

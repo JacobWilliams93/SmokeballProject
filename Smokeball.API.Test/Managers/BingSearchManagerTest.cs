@@ -2,7 +2,9 @@
 using FluentAssertions;
 using Moq;
 using Moq.Protected;
+using SmokeballAPI.Enums;
 using SmokeballAPI.Managers;
+using SmokeballAPI.Models;
 
 namespace Smokeball.API.Test.Managers;
 
@@ -14,11 +16,17 @@ public class BingSearchManagerTest
     {
         // Arrange
         var searchManager = GetSUT();
-        
+        var expected = new SearchResultModel()
+        {
+            Keywords = "Smokeball Test",
+            Url = "www.smokeball.com",
+            SearchType = SearchManagerEnum.BingSearchManager,
+            SearchPositions = [1]
+        };
         // Act
         var result = await searchManager.GetSearchResultPositions(["Smokeball", "Test"], "www.smokeball.com", 10);
         // Assert
-        result.Should().Equal([1]);
+        result.Should().BeEquivalentTo(expected);
     }
 
     [Test]
@@ -26,12 +34,19 @@ public class BingSearchManagerTest
     {
         // Arrange
         var searchManager = GetSUT();
+        var expected = new SearchResultModel()
+        {
+            Keywords = "Smokeball Test",
+            Url = "www.test.com",
+            SearchType = SearchManagerEnum.BingSearchManager,
+            SearchPositions = [0]
+        };
         
         // Act
         var result = await searchManager.GetSearchResultPositions(["Smokeball", "Test"], "www.test.com", 10);
         
         // Assert
-        result.Should().Equal([0]);
+        result.Should().BeEquivalentTo(expected);
     }
 
 

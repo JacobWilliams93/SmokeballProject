@@ -1,4 +1,5 @@
-export enum SearchTypes{
+export enum SearchType{
     Google,
     Bing
 }
+

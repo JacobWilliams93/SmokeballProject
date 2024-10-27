@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using SmokeballAPI.Enums;
 using SmokeballAPI.Interfaces;
+using SmokeballAPI.Models;
 
 namespace SmokeballAPI.Managers;
 
@@ -17,14 +18,21 @@ public abstract class SearchManagerBase : ISearchManager
     protected abstract string GetRegexPattern();
     public abstract SearchManagerEnum SearchManagerType();
 
-    public async Task<IEnumerable<int>> GetSearchResultPositions(List<string> keywords, string url, int numResults)
+    public async Task<SearchResultModel> GetSearchResultPositions(List<string> keywords, string url, int numResults)
     {
         // udm=14 makes google only return web results
         var client = _httpClientFactory.CreateClient("Client");
         string requestUrl = GetRequestUrl(keywords, numResults);
         HttpResponseMessage response = await client.GetAsync(requestUrl);
         var htmlResponse = await response.Content.ReadAsStringAsync();
-        return ParseSearchResults(htmlResponse, url);
+        var results = ParseSearchResults(htmlResponse, url);
+        return new SearchResultModel()
+        {
+            Keywords = String.Join(' ', keywords),
+            Url = url,
+            SearchType = SearchManagerType(),
+            SearchPositions = results
+        };
     }
 
     private List<int> ParseSearchResults(string searchResults, string url)

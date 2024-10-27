@@ -1,9 +1,10 @@
 ﻿using SmokeballAPI.Enums;
+using SmokeballAPI.Models;
 
 namespace SmokeballAPI.Interfaces;
 
 public interface ISearchManager
 {
     public SearchManagerEnum SearchManagerType();
-    public Task<IEnumerable<int>> GetSearchResultPositions(List<string> keywords, string url, int numResults);
+    public Task<SearchResultModel> GetSearchResultPositions(List<string> keywords, string url, int numResults);
 }

@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { SearchTypes } from "../enums/searchtype";
+import { SearchType } from "../enums/searchtype";
 import SearchResults from "./SearchResults";
+import { SearchResultModel } from "../models/searchResultModel";
 
 function SearchForm(){
     const [keywords, setKeywords] =  useState('');
     const [url, setUrl] = useState('');
-    const [searchType, setSearchType] = useState(SearchTypes.Google);
-    const [result, setResult] = useState(null);
+    const [searchType, setSearchType] = useState(SearchType.Google);
+    const [result, setResult] = useState<SearchResultModel | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(false);
     
     const search = async () => {
@@ -14,7 +15,7 @@ function SearchForm(){
             setIsLoading(true);
             console.log(searchType);
             const response = await fetch(`http://localhost:5000/search?searchString=${keywords}&targetUrl=${url}&engineType=${searchType}`);
-            const data = await response.json();
+            const data : SearchResultModel = await response.json();
             setResult(data);
             setIsLoading(false);
         } catch (error){
@@ -36,13 +37,11 @@ function SearchForm(){
             <div className="field">
                 <label>Search Engine</label>
                 <select value={searchType} onChange={e => {
-                    const v: SearchTypes = SearchTypes[e.target.value as keyof typeof SearchTypes];
-                    console.log(v);
-                    setSearchType(v);
+                    setSearchType(e.target.value as unknown as SearchType);
                 }}>
                     {
-                        Object.values(SearchTypes).filter(val => typeof val === "string").map( val => (
-                            <option value={val} key={val}>
+                        Object.values(SearchType).filter(val => typeof val === "string").map( (val, index) => (
+                            <option value={index} >
                                 {val}
                             </option>
                         ))
@@ -54,10 +53,7 @@ function SearchForm(){
 
       {result && (
         <SearchResults
-            keywords={keywords}
             results={result}
-            searchEngine={searchType}
-            url={url}
         />
       )}
     </>

@@ -1,18 +1,15 @@
-import { SearchTypes } from "../enums/searchtype";
+import { SearchResultModel } from "../models/searchResultModel";
 
 interface SearchResultsProps{
-    keywords: string;
-    url: string;
-    searchEngine: SearchTypes;
-    results: number[]
+    results: SearchResultModel
 }
 
-function SearchResults({results, keywords, url, searchEngine}: SearchResultsProps) {
+function SearchResults({results}: SearchResultsProps) {
     return (
         <>
-            <h3>The URL {url} appears in search engine {searchEngine.toString()} with search term {keywords} at the following positions:</h3>
+            <h3>The URL {results.url} appears in search engine {results.searchType.toString()} with search term {results.keywords} at the following positions:</h3>
             <ul>
-                {results.map(r => (
+                {results.searchPositions.map(r => (
                     <li>{r}</li>
                 ))}
             </ul>

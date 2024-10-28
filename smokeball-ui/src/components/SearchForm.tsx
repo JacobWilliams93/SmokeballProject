@@ -19,8 +19,7 @@ function SearchForm(){
         setError('');
         try{
             setIsLoading(true);
-            console.log(searchType);
-            const response = await fetch(`http://localhost:5000/search?searchString=${keywords}&targetUrl=${url}&engineType=${searchType}`);
+            const response = await fetch(`http://localhost:5219/search?searchString=${keywords}&targetUrl=${url}&engineType=${searchType}`);
             const data : SearchResultModel = await response.json();
             setResult(data);
             setIsLoading(false);

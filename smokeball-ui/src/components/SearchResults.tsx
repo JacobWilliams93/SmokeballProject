@@ -1,3 +1,4 @@
+import { SearchType } from "../enums/searchtype";
 import { SearchResultModel } from "../models/searchResultModel";
 
 interface SearchResultsProps{
@@ -7,8 +8,8 @@ interface SearchResultsProps{
 function SearchResults({results}: SearchResultsProps) {
     return (
         <>
-            <h3>The URL {results.url} appears in search engine {results.searchType.toString()} with search term {results.keywords} at the following positions:</h3>
-            <ul>
+            <h3 className="text-[24px]">The URL "{results.url}" appears in search engine {SearchType[results.searchType]} with search terms "{results.keywords}" at the following positions:</h3>
+            <ul className="mt-[25px]">
                 {results.searchPositions.map(r => (
                     <li>{r}</li>
                 ))}

@@ -18,6 +18,10 @@ public class SearchController: ControllerBase
     [HttpGet("search")]
     public async Task<IActionResult> Search([FromQuery] string searchString, [FromQuery] string targetUrl, [FromQuery]SearchManagerEnum engineType)
     {
+        if (String.IsNullOrEmpty(searchString) || String.IsNullOrEmpty(targetUrl))
+        {
+            throw new ArgumentException("Search string or target URL are null or empty.");
+        }
         var manager = _searchManagerFactory.GetSearchManager(engineType);
         var result = await manager.GetSearchResultPositions(searchString.Split(' ').ToList(), targetUrl, 100);
         return Ok(result);
